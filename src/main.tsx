@@ -6,6 +6,7 @@ import "./index.css";
 import { Cart } from "./pages/Cart/Cart";
 import { Home } from "./pages/Home/Home";
 import { CartProvider } from "./context/CartProvider";
+import { Checkout } from "./pages/Checkout/Checkout";
 
 const router = createBrowserRouter([
 	{
@@ -17,8 +18,8 @@ const router = createBrowserRouter([
 				element: <Home />
 			},
 			{
-				path: "/cart",
-				element: <Cart />
+				path: "/checkout",
+				element: <Checkout />
 			}
 		]
 	},

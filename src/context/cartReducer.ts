@@ -10,7 +10,8 @@ export const initialState = {
 
 export enum CartActionTypes {
     ADD_TO_CART = 'ADD_TO_CART',
-    REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+    REMOVE_FROM_CART = 'REMOVE_FROM_CART',
+    CLEAR_CART = 'CLEAR_CART'
 }
 
 export interface CartAction {
@@ -55,6 +56,12 @@ export const cartReducer = (state: CartState, action: CartAction) => {
             }
             return state
 
+        }
+        case CartActionTypes.CLEAR_CART:{
+
+            return {...state,
+                cartItems: []
+            }
         }
         default:
             return state
