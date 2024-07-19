@@ -5,12 +5,13 @@ import { LayoutMain } from "./components/layouts/LayoutMain";
 import "./index.css";
 import { Cart } from "./pages/Cart/Cart";
 import { Home } from "./pages/Home/Home";
+import { CartProvider } from "./context/CartProvider";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <LayoutMain />,
-		children:[
+		children: [
 			{
 				index: true,
 				element: <Home />
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		{/* <App /> */}
-		<RouterProvider router={router} />
+		<CartProvider>
+			<RouterProvider router={router} />
+		</CartProvider>
 	</React.StrictMode>
 );

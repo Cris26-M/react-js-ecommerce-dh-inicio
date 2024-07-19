@@ -1,32 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { Hero } from '../../components/ui/Hero/Hero'
+import styles from './Home.module.css'
+import { CardProduct } from '../../components/ui/CardProduct'
+import { getProducts } from '../../service/index'
+import { Products } from '../../interface'
 
 export const Home = () => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState<Products[]>([])
 
-    const getProducts = async() => {
-        try {
-            //if working in local vs code, change this to the real localhost route of the server
-            const response = await fetch('https://3000-idx-react-js-ecommerce-dh-inicio-1720009870507.cluster-vyr53kd25jc2yvngldrwyq6zc4.cloudworkstations.dev/products')
-            const data = await response.json()
+    const [error, setError] = useState(false)
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        getProducts().then(data => {
             setProducts(data)
-        } catch (error) {
-            console.log(error);
-            
-        }
-    }
-
-    useEffect(()=>{
-        getProducts()
+            setIsLoading(false)
+        }).catch(() => {
+            setError(true)
+        }).finally(() => {
+            setIsLoading(false)
+        })
     }, [])
 
-console.log(products);
+    return (
+        <>
 
-    
-  return (
-    <>
-
-    <Hero/>
-    </>
-  )
+            <Hero />
+            {isLoading && <p>Loading...</p>}
+            {error && <p>Something went wrong...</p>}
+            <div className={styles.container}>
+                {products.map((product) =>
+                    (<CardProduct key={product.tail} product={product}></CardProduct>)
+                )}
+            </div>
+        </>
+    )
 }
