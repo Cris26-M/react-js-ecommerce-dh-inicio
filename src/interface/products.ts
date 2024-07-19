@@ -5,10 +5,10 @@ export interface Product {
     head: string;
     image: string;
     name: string;
-    release: Release;
+    release?: Release | string;
     tail: string;
     type: string;
-    id: string;
+    id?: string;
     price: number;
 }
 
